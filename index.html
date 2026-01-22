@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator | حاسبة العمر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Theme & Language Controls -->
+    <div class="controls-top">
+        <button id="themeToggle" class="control-btn" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button id="langToggle" class="control-btn" aria-label="Toggle language">
+            <span class="lang-text">EN</span>
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <header>
+            <div class="icon-wrapper">
+                <i class="fas fa-birthday-cake"></i>
+            </div>
+            <h1 data-ar="حاسبة العمر الاحترافية" data-en="Professional Age Calculator">حاسبة العمر الاحترافية</h1>
+            <p class="subtitle" data-ar="اكتشف عمرك بالتفصيل" data-en="Discover your age in detail">اكتشف عمرك بالتفصيل</p>
+        </header>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <label data-ar="أدخل تاريخ ميلادك:" data-en="Enter your birth date:">أدخل تاريخ ميلادك:</label>
+            <div class="input-group">
+                <input type="date" id="birthDate" max="2026-01-22">
+                <button id="calculateBtn" class="btn-calculate">
+                    <i class="fas fa-calculator"></i>
+                    <span data-ar="احسب العمر" data-en="Calculate Age">احسب العمر</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="results-section hidden">
+            <!-- Main Age Display -->
+            <div class="age-display">
+                <div class="age-card">
+                    <span class="age-label" data-ar="السنوات" data-en="Years">السنوات</span>
+                    <span class="age-value" id="years">0</span>
+                </div>
+                <div class="age-card">
+                    <span class="age-label" data-ar="الأشهر" data-en="Months">الأشهر</span>
+                    <span class="age-value" id="months">0</span>
+                </div>
+                <div class="age-card">
+                    <span class="age-label" data-ar="الأيام" data-en="Days">الأيام</span>
+                    <span class="age-value" id="days">0</span>
+                </div>
+            </div>
+
+            <!-- Detailed Stats -->
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-calendar-day"></i>
+                    <div>
+                        <span class="stat-label" data-ar="إجمالي الأيام" data-en="Total Days">إجمالي الأيام</span>
+                        <span class="stat-value" id="totalDays">0</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <span class="stat-label" data-ar="إجمالي الساعات" data-en="Total Hours">إجمالي الساعات</span>
+                        <span class="stat-value" id="totalHours">0</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-hourglass-half"></i>
+                    <div>
+                        <span class="stat-label" data-ar="إجمالي الدقائق" data-en="Total Minutes">إجمالي الدقائق</span>
+                        <span class="stat-value" id="totalMinutes">0</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-heartbeat"></i>
+                    <div>
+                        <span class="stat-label" data-ar="نبضات القلب تقريباً" data-en="Heartbeats (approx)">نبضات القلب تقريباً</span>
+                        <span class="stat-value" id="heartbeats">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Birthday Countdown -->
+            <div class="birthday-section">
+                <div class="birthday-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h3 data-ar="عيد ميلادك القادم" data-en="Your Next Birthday">عيد ميلادك القادم</h3>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="countMonths">0</span>
+                        <span class="countdown-label" data-ar="شهر" data-en="Months">شهر</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="countDays">0</span>
+                        <span class="countdown-label" data-ar="يوم" data-en="Days">يوم</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="countHours">0</span>
+                        <span class="countdown-label" data-ar="ساعة" data-en="Hours">ساعة</span>
+                    </div>
+                </div>
+                <p class="next-birthday-date" id="nextBirthdayDate"></p>
+            </div>
+
+            <!-- Zodiac Sign -->
+            <div class="zodiac-section">
+                <i class="fas fa-star zodiac-icon" id="zodiacIcon"></i>
+                <h3 data-ar="برجك الفلكي" data-en="Your Zodiac Sign">برجك الفلكي</h3>
+                <p class="zodiac-name" id="zodiacSign"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p data-ar="صُنع بـ ❤️ بواسطة YASSINE" data-en="Made with ❤️ by YASSINE">صُنع بـ ❤️ بواسطة YASSINE</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
