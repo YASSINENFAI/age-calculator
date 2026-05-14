@@ -1,26 +1,38 @@
+/* ===================================================
+   EDITORIAL: Dark Parchment & Gold Leaf
+   Age Calculator — Aesthetic Redesign
+   =================================================== */
+
 /* CSS Variables for Theme Management */
 :root {
-    --bg-primary: #f0f4f8;
-    --bg-secondary: #ffffff;
-    --bg-card: #ffffff;
-    --text-primary: #1a202c;
-    --text-secondary: #4a5568;
-    --accent-primary: #667eea;
-    --accent-secondary: #764ba2;
-    --shadow: rgba(0, 0, 0, 0.1);
-    --border: #e2e8f0;
-    --border-radius: 16px;
+    --bg-primary: #1a1714;
+    --bg-secondary: #252019;
+    --bg-card: #2a2318;
+    --text-primary: #f5f0e8;
+    --text-secondary: #a89b85;
+    --accent-primary: #C9A84C;
+    --accent-secondary: #8B6914;
+    --accent-highlight: #E8D48B;
+    --border: #3d3425;
+    --shadow: rgba(0, 0, 0, 0.4);
     --transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'IBM Plex Sans Arabic', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
 }
 
+/* Dark mode inverts to light parchment */
 body.dark-mode {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --bg-card: #1e293b;
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --shadow: rgba(0, 0, 0, 0.3);
-    --border: #334155;
+    --bg-primary: #F5F0E8;
+    --bg-secondary: #EBE5D9;
+    --bg-card: #FFFFFF;
+    --text-primary: #1a1714;
+    --text-secondary: #5c5040;
+    --accent-primary: #C9A84C;
+    --accent-secondary: #8B6914;
+    --accent-highlight: #8B6914;
+    --border: #d4c9b5;
+    --shadow: rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -29,127 +41,208 @@ body.dark-mode {
     box-sizing: border-box;
 }
 
+/* Body with noise texture and Islamic pattern overlay */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    font-family: var(--font-body);
+    background-color: var(--bg-primary);
     color: var(--text-primary);
     min-height: 100vh;
     padding: 20px;
     transition: var(--transition);
+    position: relative;
 }
 
+/* Noise texture overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+}
+
+/* Geometric Islamic-inspired pattern overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.04;
+    background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 40px, var(--accent-primary) 40px, var(--accent-primary) 41px),
+        repeating-linear-gradient(60deg, transparent, transparent 40px, var(--accent-primary) 40px, var(--accent-primary) 41px),
+        repeating-linear-gradient(120deg, transparent, transparent 40px, var(--accent-primary) 40px, var(--accent-primary) 41px);
+}
+
+/* Controls */
 .controls-top {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 30px;
+    right: 30px;
     display: flex;
-    gap: 10px;
+    gap: 12px;
     z-index: 1000;
 }
 
-body[dir="rtl"] .controls-top {
+[dir="rtl"] .controls-top {
     right: auto;
-    left: 20px;
+    left: 30px;
 }
 
 .control-btn {
-    width: 50px;
-    height: 50px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    border: none;
-    background: var(--bg-card);
-    color: var(--text-primary);
+    border: 1.5px solid var(--accent-primary);
+    background: transparent;
+    color: var(--accent-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 12px var(--shadow);
+    font-size: 1rem;
+    font-family: var(--font-body);
+    font-weight: 600;
     transition: var(--transition);
 }
 
 .control-btn:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 6px 20px var(--shadow);
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
 }
 
+.lang-text {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+/* Container */
 .container {
-    max-width: 900px;
+    max-width: 940px;
     margin: 80px auto 40px;
     background: var(--bg-card);
-    border-radius: var(--border-radius);
-    box-shadow: 0 20px 60px var(--shadow);
-    padding: 40px;
-    animation: fadeInUp 0.6s ease-out;
+    border-top: 2px solid var(--accent-primary);
+    box-shadow:
+        0 20px 60px var(--shadow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    padding: 60px 55px;
+    position: relative;
+    z-index: 1;
+    animation: containerReveal 0.6s ease-out both;
 }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
+@keyframes containerReveal {
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Header */
 header {
-    text-align: center;
+    text-align: start;
     margin-bottom: 40px;
+    animation: revealStagger 0.5s ease-out 0.2s both;
+}
+
+@keyframes revealStagger {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .icon-wrapper {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 20px;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    border-radius: 50%;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 20px;
+    background: transparent;
+    border: 2px solid var(--accent-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
 }
 
 .icon-wrapper i {
-    font-size: 2.5rem;
-    color: white;
+    font-size: 1.8rem;
+    color: var(--accent-primary);
 }
 
 h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 10px;
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
 .subtitle {
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+}
+
+/* Decorative Gold Rule */
+.gold-rule {
+    height: 1px;
+    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary), transparent);
+    margin-bottom: 40px;
+    animation: goldLineDraw 1s ease-out 0.3s both;
+    transform-origin: left;
+}
+
+[dir="rtl"] .gold-rule {
+    background: linear-gradient(to left, var(--accent-primary), var(--accent-secondary), transparent);
+    transform-origin: right;
+}
+
+@keyframes goldLineDraw {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+
+/* Input Section */
+.input-section {
+    margin-bottom: 40px;
+    animation: revealStagger 0.5s ease-out 0.4s both;
 }
 
 .input-section label {
     display: block;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
 .input-group {
     display: flex;
-    gap: 15px;
+    gap: 16px;
     flex-wrap: wrap;
 }
 
 #birthDate {
     flex: 1;
     min-width: 200px;
-    padding: 15px 20px;
-    border: 2px solid var(--border);
-    border-radius: 12px;
+    padding: 16px 20px;
+    border: 1.5px solid var(--border);
+    border-radius: 0;
     font-size: 1rem;
+    font-family: var(--font-body);
     background: var(--bg-secondary);
     color: var(--text-primary);
     transition: var(--transition);
@@ -158,180 +251,362 @@ h1 {
 #birthDate:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
 }
 
 .btn-calculate {
-    padding: 15px 35px;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    color: white;
+    padding: 16px 36px;
+    background: var(--accent-primary);
+    color: var(--bg-primary);
     border: none;
-    border-radius: 12px;
+    border-radius: 0;
     font-weight: 600;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 10px;
     transition: var(--transition);
+    letter-spacing: 0.02em;
 }
 
 .btn-calculate:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    background: var(--accent-highlight);
+    box-shadow: 0 0 24px rgba(201, 168, 76, 0.25);
 }
 
+/* Results Section */
 .results-section.hidden {
     display: none;
 }
 
+.results-section {
+    animation: revealStagger 0.5s ease-out both;
+}
+
+/* Age Display - Asymmetric Layout */
 .age-display {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    align-items: stretch;
 }
 
 .age-card {
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    padding: 30px 20px;
-    border-radius: var(--border-radius);
-    text-align: center;
-    color: white;
-    box-shadow: 0 10px 30px var(--shadow);
+    background: var(--bg-secondary);
+    border-top: 2px solid var(--accent-primary);
+    padding: 30px 24px;
+    text-align: start;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
     transition: var(--transition);
 }
 
 .age-card:hover {
-    transform: translateY(-5px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.02),
+        0 0 20px rgba(201, 168, 76, 0.08);
 }
 
 .age-label {
     display: block;
-    font-size: 0.9rem;
-    opacity: 0.9;
-    margin-bottom: 10px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 400;
 }
 
 .age-value {
     display: block;
-    font-size: 3rem;
-    font-weight: bold;
+    font-family: var(--font-mono);
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    line-height: 1;
+    transition: all 0.4s ease-out;
 }
 
+.age-card:first-child .age-value {
+    font-size: 6.5rem;
+}
+
+/* Stats Grid - Uneven columns */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 2fr 1fr 1fr 2fr;
     gap: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 .stat-item {
-    background: var(--bg-secondary);
-    padding: 20px;
-    border-radius: 12px;
-    border: 2px solid var(--border);
+    background: transparent;
+    padding: 20px 0 20px 20px;
+    border-left: 4px solid var(--accent-primary);
     display: flex;
-    align-items: center;
-    gap: 15px;
+    align-items: flex-start;
+    gap: 14px;
     transition: var(--transition);
 }
 
+[dir="rtl"] .stat-item {
+    border-left: none;
+    border-right: 4px solid var(--accent-primary);
+    padding: 20px 20px 20px 0;
+}
+
 .stat-item:hover {
-    border-color: var(--accent-primary);
+    background: rgba(201, 168, 76, 0.03);
 }
 
 .stat-item i {
-    font-size: 2rem;
+    font-size: 1.4rem;
     color: var(--accent-primary);
+    margin-top: 2px;
 }
 
 .stat-label {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
 }
 
 .stat-value {
     display: block;
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-family: var(--font-mono);
+    font-size: 1.3rem;
+    font-weight: 700;
     color: var(--text-primary);
+    transition: all 0.4s ease-out;
 }
 
+/* Birthday Countdown Section - Full bleed with gold borders */
 .birthday-section {
-    background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
-    padding: 30px;
-    border-radius: var(--border-radius);
+    background: var(--bg-secondary);
+    padding: 50px 40px;
     text-align: center;
-    margin-bottom: 30px;
+    margin: 0 -55px 40px;
+    border-top: 1px solid var(--accent-primary);
+    border-bottom: 1px solid var(--accent-primary);
+    position: relative;
+}
+
+.birthday-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-primary), transparent);
+}
+
+.birthday-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-primary), transparent);
 }
 
 .birthday-icon {
-    font-size: 3rem;
-    animation: bounce 2s ease-in-out infinite;
+    font-size: 2rem;
+    color: var(--accent-primary);
+    margin-bottom: 12px;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+.birthday-section h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 24px;
 }
 
 .countdown {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     flex-wrap: wrap;
-    margin: 20px 0;
+    margin: 24px 0;
 }
 
 .countdown-item {
-    background: white;
-    padding: 15px 25px;
-    border-radius: 12px;
+    background: transparent;
+    padding: 16px 28px;
+    border: 1px solid var(--border);
     min-width: 100px;
 }
 
 .countdown-value {
     display: block;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #2d3436;
+    font-family: var(--font-mono);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    line-height: 1.1;
+    transition: all 0.4s ease-out;
 }
 
 .countdown-label {
     display: block;
-    font-size: 0.9rem;
-    color: #636e72;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 6px;
 }
 
+.next-birthday-date {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 12px;
+}
+
+/* Zodiac Section */
 .zodiac-section {
-    background: var(--bg-secondary);
-    padding: 30px;
-    border-radius: var(--border-radius);
-    border: 2px solid var(--border);
+    background: transparent;
+    padding: 40px 30px;
     text-align: center;
+    border: none;
+}
+
+.zodiac-circle {
+    width: 70px;
+    height: 70px;
+    border: 1.5px solid var(--accent-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
 }
 
 .zodiac-icon {
-    font-size: 3rem;
+    font-size: 1.6rem;
     color: var(--accent-primary);
+}
+
+.zodiac-section h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
 }
 
 .zodiac-name {
-    font-size: 1.8rem;
-    font-weight: bold;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--accent-primary);
 }
 
+/* Footer */
 footer {
     text-align: center;
-    padding: 20px;
-    color: white;
+    padding: 40px 20px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+footer p {
+    color: var(--accent-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+/* ==========================================
+   Responsive Design
+   ========================================== */
+@media (max-width: 900px) {
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 @media (max-width: 768px) {
-    .container { padding: 25px; margin: 60px 10px 20px; }
-    h1 { font-size: 2rem; }
-    .input-group { flex-direction: column; }
-    .btn-calculate { width: 100%; justify-content: center; }
+    .container {
+        padding: 40px 28px;
+        margin: 60px 10px 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .btn-calculate {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .age-display {
+        grid-template-columns: 1fr;
+    }
+
+    .age-card:first-child .age-value {
+        font-size: 5rem;
+    }
+
+    .age-value {
+        font-size: 3.5rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .birthday-section {
+        margin: 0 -28px 30px;
+        padding: 40px 20px;
+    }
+
+    .countdown {
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .controls-top {
+        top: 16px;
+        right: 16px;
+    }
+
+    [dir="rtl"] .controls-top {
+        left: 16px;
+    }
+
+    .container {
+        padding: 30px 20px;
+        margin: 50px 6px 20px;
+    }
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    .age-card:first-child .age-value {
+        font-size: 4rem;
+    }
+
+    .age-value {
+        font-size: 3rem;
+    }
+
+    .birthday-section {
+        margin: 0 -20px 30px;
+    }
 }
