@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Age Calculator | حاسبة العمر</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600&family=JetBrains+Mono:wght@700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <meta name="google-site-verification" content="pgK23xeIXk1OV9ceUlVXIwuseSbIcKlzja8v0Iwlwc4" />
@@ -28,6 +31,9 @@
             <h1 data-ar="حاسبة العمر الاحترافية" data-en="Professional Age Calculator">حاسبة العمر الاحترافية</h1>
             <p class="subtitle" data-ar="اكتشف عمرك بالتفصيل" data-en="Discover your age in detail">اكتشف عمرك بالتفصيل</p>
         </header>
+
+        <!-- Decorative Gold Rule -->
+        <div class="gold-rule"></div>
 
         <!-- Input Section -->
         <div class="input-section">
@@ -116,7 +122,9 @@
 
             <!-- Zodiac Sign -->
             <div class="zodiac-section">
-                <i class="fas fa-star zodiac-icon" id="zodiacIcon"></i>
+                <div class="zodiac-circle">
+                    <i class="fas fa-star zodiac-icon" id="zodiacIcon"></i>
+                </div>
                 <h3 data-ar="برجك الفلكي" data-en="Your Zodiac Sign">برجك الفلكي</h3>
                 <p class="zodiac-name" id="zodiacSign"></p>
             </div>
